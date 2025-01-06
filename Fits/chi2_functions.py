@@ -111,4 +111,13 @@ def chi2(ampT,ampC,ampP,ampA,ampPA,ampP2,ampPA2,delC,delP,delA,delPA,delP2,delPA
                 [-1,0,-1,0,-1,-1,-1,0,-2/3,-1/3],\
                 [0,0,0,0,1/root2,0,1/root2,0,0,1/(3*root2)],\
                 [0,-1/root3,0,0,0,0,0,-1/root3,0,1/root3],\
+                [0,-root2/3,2*root2/3,0,1/root2,2*root2/3,1/root2,-root2/3,-2*root2/9,-1/(3*root2)]]
+
+    #===Vector of diagrams===#
+    diagramsd0 = np.array([TTd,CCd,PPucd,AAd,PAucd,PPtcd,PAtcd,PEWTd,PEWCd,PEWAd])
+    diagramsd1 = np.array([TTs,CCs,PPucs,AAs,PAucs,PPtcs,PAtcs,PEWTs,PEWCs,PEWAs])
+    diagramsd0b= np.array([TTdb,CCdb,PPucdb,AAdb,PAucdb,PPtcdb,PAtcdb,PEWTdb,PEWCdb,PEWAdb])
+    diagramsd1b= np.array([TTsb,CCsb,PPucsb,AAsb,PAucsb,PPtcsb,PAtcsb,PEWTsb,PEWCsb,PEWAsb])
+
+    
 
