@@ -33,7 +33,8 @@ def amplitude_eta_eta_prime(amplitude8X8,amplitude8X1,amplitude1X1):
     amplitude = amplitude8X8*np.cos(theta_eta)*np.sin(theta_eta) + amplitude8X1*(np.cos(theta_eta)**2 - np.sin(theta_eta)**2) - amplitude1X1*np.cos(theta_eta)*np.sin(theta_eta)
     return amplitude
 
-def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8X8,delPuc8X8,delA8X8,delPAuc8X8,delPtc8X8,delPAtc8X8,ampT8X1,ampC8X1,ampPuc8X1,ampPtc8X1,delT8X1,delC8X1,delPuc8X1,delPtc8X1,ampC1X1,ampPtc1X1,delC1X1,delPtc1X1):
+def chi2(parameters):
+    ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8X8,delPuc8X8,delA8X8,delPAuc8X8,delPtc8X8,delPAtc8X8,ampT8X1,ampC8X1,ampPuc8X1,ampPtc8X1,delT8X1,delC8X1,delPuc8X1,delPtc8X1,ampC1X1,ampPtc1X1,delC1X1,delPtc1X1 = parameters
     #===CKM elements===#
     Vubd = Vub*Vud*np.exp(1j*gamma)
     Vtbd = Vtb*Vtd*np.exp(-1j*beta)
@@ -83,12 +84,12 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     PPtc1X1 = PPtc1X1*Vtbd
 
     #===EWP Diagrams===#
-    PEWTd8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbd
-    PEWCd8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbd
-    PEWAd8X8 = -3/2(c9+c10)/(c1+c2)*AA8X8*Vtbd
+    PEWTd8X8 = -3/4.0 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbd
+    PEWCd8X8 = -3/4.0 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbd
+    PEWAd8X8 = -3/2.0 * (c9+c10)/(c1+c2)*AA8X8*Vtbd
 
-    PEWTd8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbd
-    PEWCd8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbd
+    PEWTd8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbd
+    PEWCd8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbd
 
     #===Delta S = 1===#
     TTs8X8 = TT8X8*Vubs
@@ -108,12 +109,12 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     PPtc1X1 = PPtc1X1*Vtbs
 
     #===EWP Diagrams===#
-    PEWTs8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbs
-    PEWCs8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbs
-    PEWAs8X8 = -3/2(c9+c10)/(c1+c2)*AA8X8*Vtbs
+    PEWTs8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbs
+    PEWCs8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbs
+    PEWAs8X8 = -3/2 * (c9+c10)/(c1+c2)*AA8X8*Vtbs
 
-    PEWTs8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbs
-    PEWCs8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbs
+    PEWTs8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbs
+    PEWCs8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbs
 
     #===Diagrams with conjugate weak phases===#
     TTdb8X8 = TT8X8*Vubdb
@@ -133,12 +134,12 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     PPtcb1X1 = PPtc1X1*Vtbdb
 
     #===EWP Diagrams===#
-    PEWTdb8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbdb
-    PEWCdb8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbdb
-    PEWAdb8X8 = -3/2(c9+c10)/(c1+c2)*AA8X8*Vtbdb
+    PEWTdb8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbdb
+    PEWCdb8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbdb
+    PEWAdb8X8 = -3/2 * (c9+c10)/(c1+c2)*AA8X8*Vtbdb
 
-    PEWTdb8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbdb
-    PEWCdb8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbdb
+    PEWTdb8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbdb
+    PEWCdb8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbdb
 
     #===Delta S = 1===#
     TTsb8X8 = TT8X8*Vubsb
@@ -158,18 +159,18 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     PPtcb1X1 = PPtc1X1*Vtbsb
 
     #===EWP Diagrams===#
-    PEWTsb8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbsb
-    PEWCsb8X8 = -3/4((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbsb
-    PEWAsb8X8 = -3/2(c9+c10)/(c1+c2)*AA8X8*Vtbsb
+    PEWTsb8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8+AA8X8)+(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbsb
+    PEWCsb8X8 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X8+CC8X8-AA8X8)-(c9-c10)/(c1-c2)*(TT8X8-CC8X8-AA8X8))*Vtbsb
+    PEWAsb8X8 = -3/2 * (c9+c10)/(c1+c2)*AA8X8*Vtbsb
 
-    PEWTsb8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbsb
-    PEWCsb8X1 = -3/4((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbsb
+    PEWTsb8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)+(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbsb
+    PEWCsb8X1 = -3/4 * ((c9+c10)/(c1+c2)*(TT8X1+CC8X1)-(c9-c10)/(c1-c2)*(TT8X1-CC8X1))*Vtbsb
 
     #===Diagram contributions to amplitudes===#
 
     DIAGd08X8 = [[0,0,1,1,0,1,0,0,-1/3,0],\
                 [-1/root2,-1/root2,0,0,0,0,0,-1/root2,-1/root2,0],\
-                [-1/root6,-1/root6,-2/root6,-2/root6,0,-2/root6,0,-1/root6,-1/(3*root6),0,-4/(3*root6)],\
+                [-1/root6,-1/root6,-2/root6,-2/root6,0,-2/root6,0,-1/root6,-1/(3*root6),0],\
                 [0,0,1,0,1,1,1,0,-1/3,-2/3],\
                 [-1,0,-1,0,-1,-1,-1,0,-2/3,-1/3],\
                 [0,0,0,0,-1,0,-1,0,0,-1/3],\
@@ -183,7 +184,7 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
                 [-1/root2,-1/root2,-1/root2,-1/root2,0,-1/root2,0,-1/root2,-root2/3,0],\
                 [-1/root6,-1/root6,1/root6,1/root6,0,1/root6,0,-1/root6,-4/(3*root6),0],\
                 [-1,0,-1,0,0,-1,0,0,-2/3,0],\
-                [0,-1/root2,-1/root2,-1/root2,-1/root2,0,-1/root2,0,-1/root2,-1/(3*root2),0],\
+                [0,-1/root2,1/root2,0,0,1/root2,0,-1/root2,-1/(3*root2),0],\
                 [0,-1/root6,1/root6,0,0,1/root6,0,-1/root6,-1/(3*root6),0],\
                 [0,0,1,0,1,1,1,0,-1/3,-2/3],\
                 [0,0,0,0,-1,0,-1,0,0,-1/3],\
@@ -269,9 +270,9 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     BR_B0sEK0b = (fB0sEK0b/(16*math.pi*mB0s**2))*(abs(amplitude_eta(amplitudes_DeltaS08X8[11],amplitudes_DeltaS08X1[3]))**2 + abs(amplitude_eta(amplitudes_DeltaS0b8X8[11],amplitudes_DeltaS0b8X1[3]))**2)/GammaB0s
     BR_B0sEpK0b= (fB0sEpK0b/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS08X8[11],amplitudes_DeltaS08X1[3]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS0b8X8[11],amplitudes_DeltaS0b8X1[3]))**2)/GammaB0s
     
-    BR_B0EE    = (fB0EE/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS0b8X8)))
-    BR_B0EEp   = (fB0EEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta_prime(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs()) 
-    BR_B0EpEp  = (fB0EpEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs())
+    BR_B0EE    = (fB0EE/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS0b8X8[8],amplitudes_DeltaS0b8X1[2],amplitudes_DeltaS0b1X1[0]))**2)/GammaB0
+    BR_B0EEp   = (fB0EEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta_prime(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS0b8X8[8],amplitudes_DeltaS0b8X1[2],amplitudes_DeltaS0b1X1[0]))**2)/GammaB0
+    BR_B0EpEp  = (fB0EpEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS08X8[8],amplitudes_DeltaS08X1[2],amplitudes_DeltaS01X1[0])))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS0b8X8[8],amplitudes_DeltaS0b8X1[2],amplitudes_DeltaS0b1X1[0]))**2)/GammaB0
 
     #===Branching ratios Delta S = 1===#
     BR_BpPpK0  = (fBpPpK0/(16*math.pi*mBp**2))*(abs(amplitudes_DeltaS18X8[0])**2 + abs(amplitudes_DeltaS1b8X8[0])**2)/GammaBp
@@ -289,9 +290,9 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     BR_B0sP0E  = (fB0sP0E/(16*math.pi*mB0s**2))*(abs(amplitude_eta(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2 + abs(amplitude_eta(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2)/GammaB0s
     BR_B0sP0Ep = (fB0sP0Ep/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2)/GammaB0s
 
-    BR_B0sEE   = (fB0sEE/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2)
-    BR_B0sEEp  = (fB0sEEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2)
-    BR_B0sEpEp = (fB0sEpEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2)
+    BR_B0sEE   = (fB0sEE/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2)/GammaB0s
+    BR_B0sEEp  = (fB0sEEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2)/GammaB0s
+    BR_B0sEpEp = (fB0sEpEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2)/GammaB0s
 
     #===Direct CP asymmetries Delta S = 0===#
     ACP_BpK0bKp = (abs(amplitudes_DeltaS0b8X8[0])**2 - abs(amplitudes_DeltaS08X8[0])**2)/(abs(amplitudes_DeltaS0b8X8[0])**2 + abs(amplitudes_DeltaS08X8[0])**2)
@@ -329,9 +330,9 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     ACP_B0sP0E  = (abs(amplitude_eta(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2 - abs(amplitude_eta(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2)/(abs(amplitude_eta(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2 + abs(amplitude_eta(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2)
     ACP_B0sP0Ep = (abs(amplitude_eta_prime(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS1b8X8[10],amplitudes_DeltaS1b8X1[2]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS18X8[10],amplitudes_DeltaS18X1[2]))**2)
 
-    ACP_B0sEE   = (abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 - abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)/(abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)
-    ACP_B0sEEp  = (abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 - abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)/(abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)
-    ACP_B0sEpEp = (abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 - abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)/(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[7],amplitudes_DeltaS1b1X1[1]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[7],amplitudes_DeltaS11X1[1]))**2)
+    ACP_B0sEE   = (abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 - abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)/(abs(amplitude_eta_eta(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)
+    ACP_B0sEEp  = (abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 - abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)/(abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)
+    ACP_B0sEpEp = (abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 - abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)/(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b8X8[11],amplitudes_DeltaS1b8X1[3],amplitudes_DeltaS1b1X1[0]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS18X8[11],amplitudes_DeltaS18X1[3],amplitudes_DeltaS11X1[0]))**2)
 
     #===Indirect CP asymmetries Delta S = 0===#
     SCP_B0K0K0b    = 2*(np.exp(-2j*beta)*np.conjugate(amplitudes_DeltaS08X8[3])*amplitudes_DeltaS0b8X8[3])/(abs(amplitudes_DeltaS0b8X8[3])**2 + abs(amplitudes_DeltaS08X8[3])**2)
@@ -438,4 +439,4 @@ def chi2(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8
     chi2_SCP = chi2_SCP_B0K0K0b + chi2_SCP_B0PpPm + chi2_SCP_B0P0K0 + chi2_SCP_B0sKpKm + chi2_SCP_B0EpK0
 
     chi2_total = chi2_BR + chi2_ACP + chi2_SCP
-    return chi2_total
+    return -chi2_total
