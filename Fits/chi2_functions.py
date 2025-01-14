@@ -3,10 +3,7 @@ import matplotlib.pyplot as plt
 import math
 from exp_data import *
 
-root2 = np.sqrt(2)
-root3 = np.sqrt(3)
-root6 = np.sqrt(6)
-Vud,Vus,Vub,Vtd,Vts,Vtb,gamma,beta,betas = Vud_exp,Vus_exp,Vub_exp,Vtd_exp,Vts_exp,Vtb_exp,gamma_exp,beta_exp,betas_exp
+
 
 def amplitude_eta(amplitude_eta8, amplitude_eta1):
     theta_eta = np.arcsin(1/3)
@@ -35,6 +32,13 @@ def amplitude_eta_eta_prime(amplitude8X8,amplitude8X1,amplitude1X1):
 
 def chi2(parameters):
     ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8X8,delPuc8X8,delA8X8,delPAuc8X8,delPtc8X8,delPAtc8X8,ampT8X1,ampC8X1,ampPuc8X1,ampPtc8X1,delT8X1,delC8X1,delPuc8X1,delPtc8X1,ampC1X1,ampPtc1X1,delC1X1,delPtc1X1 = parameters
+    
+    
+    root2 = np.sqrt(2)
+    root3 = np.sqrt(3)
+    root6 = np.sqrt(6)
+    Vud,Vus,Vub,Vtd,Vts,Vtb,gamma,beta,betas = Vud_exp,Vus_exp,Vub_exp,Vtd_exp,Vts_exp,Vtb_exp,gamma_exp,beta_exp,betas_exp
+
     #===CKM elements===#
     Vubd = Vub*Vud*np.exp(1j*gamma)
     Vtbd = Vtb*Vtd*np.exp(-1j*beta)
