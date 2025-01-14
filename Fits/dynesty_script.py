@@ -60,7 +60,7 @@ if __name__ =="__main__":
   ndim = 25
   nlive = 500
   with mp.Pool(nthreads) as poo:
-      dns = dynesty.DynamicNestedSampler(chi2,
+      dns = dynesty.DynamicNestedSampler(chi2WithoutEta,
                                       prior_transform,
                                       ndim = ndim,
                                       nlive=nlive,
