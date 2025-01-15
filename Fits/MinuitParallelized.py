@@ -1,0 +1,48 @@
+import numpy as np
+from iminuit import Minuit
+from concurrent.futures import ProcessPoolExecutor
+from tqdm import tqdm
+from chi2_functions import chi2,chi2Minuit  # Assuming chi2 is defined to accept 25 parameters
+
+def minimize_with_guess(guess):
+    try:
+        minuit = Minuit(chi2Minuit, ampT8X8=guess[0], ampC8X8=guess[1], ampPuc8X8=guess[2], ampA8X8=guess[3], ampPAuc8X8=guess[4],ampPtc8X8=guess[5],ampPAtc8X8=guess[6],\
+                        delC8X8=guess[7],delPuc8X8=guess[8],delA8X8=guess[9],delPAuc8X8=guess[10],delPtc8X8=guess[11],delPAtc8X8=guess[12],\
+                          ampT8X1=guess[13],ampC8X1=guess[14],ampPuc8X1=guess[15],ampPtc8X1=guess[16],\
+                            delT8X1=guess[17],delC8X1=guess[18],delPuc8X1=guess[19],delPtc8X1=guess[20],\
+                              ampC1X1=guess[21],ampPtc1X1=guess[22],\
+                                delC1X1=guess[23],delPtc1X1=guess[24])
+        minuit.migrad()
+    except Exception as e:
+        print(f"Error during minimization for guess {guess[:5]}: {e}")
+        return {'guess': guess, 'error': str(e)}
+
+
+if __name__ == "__main__":
+    try:
+        # Generate 2000 random initial guesses, each with 25 parameters
+        initial_guesses = 2 * np.pi * np.random.rand(1000, 25)
+
+        # Parallel execution
+        results = []
+        with ProcessPoolExecutor() as executor:
+            for res in tqdm(executor.map(minimize_with_guess, initial_guesses), total=len(initial_guesses)):
+                results.append(res)
+
+        # Filter out failed minimizations
+        successful_results = [res for res in results if 'error' not in res]
+
+        # Find the result with the lowest chi2
+        if successful_results:
+            best_result = min(successful_results, key=lambda r: r['chi2'])
+            print("\nBest Result:")
+            print(f"Guess: {best_result['guess']}, Minimum: {best_result['minimum']}, Chi2: {best_result['chi2']}")
+        else:
+            print("No successful minimizations.")
+
+        # Optional: Print all results
+        for res in successful_results:
+            print(f"Guess: {res['guess']}, Minimum: {res['minimum']}, Chi2: {res['chi2']}")
+
+    except Exception as e:
+        print(f"An error occurred during execution: {e}")
