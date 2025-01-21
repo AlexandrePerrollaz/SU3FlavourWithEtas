@@ -445,7 +445,6 @@ def chi2(parameters):
     chi2_total = chi2_BR + chi2_ACP + chi2_SCP
     return -chi2_total
 
-
 #### Old version of the chi2 function ####
 
 def oldchi2(ampT,ampC,ampP,ampA,ampPA,ampP2,ampPA2,delC,delP,delA,delPA,delP2,delPA2):
@@ -656,7 +655,6 @@ def oldchi2(ampT,ampC,ampP,ampA,ampPA,ampP2,ampPA2,delC,delP,delA,delPA,delP2,de
     chi2total = chi2_BR + chi2ACP + chi2SCP + chi2CKM + chi2Gam + chi2Bet
     print(ImsCPB0PmPp,ImsCPB0K0K0b,ImsCPB0P0K0,ImsCPB0sKmKp)
     return chi2total
-
 
 def chi2Printed(parameters):
     ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8X8,delPuc8X8,delA8X8,delPAuc8X8,delPtc8X8,delPAtc8X8,ampT8X1,ampC8X1,ampPuc8X1,ampPtc8X1,delT8X1,delC8X1,delPuc8X1,delPtc8X1,ampC1X1,ampPtc1X1,delC1X1,delPtc1X1 = parameters
@@ -1490,6 +1488,7 @@ def chi2WithoutEta(parameters):
 
     chi2_total = chi2_BR + chi2_ACP + chi2_SCP
     return -chi2_total
+
 def chi2Minuit(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,ampPAtc8X8,delC8X8,delPuc8X8,delA8X8,delPAuc8X8,delPtc8X8,delPAtc8X8,ampT8X1,ampC8X1,ampPuc8X1,ampPtc8X1,delT8X1,delC8X1,delPuc8X1,delPtc8X1,ampC1X1,ampPtc1X1,delC1X1,delPtc1X1):
     root2 = np.sqrt(2)
     root3 = np.sqrt(3)

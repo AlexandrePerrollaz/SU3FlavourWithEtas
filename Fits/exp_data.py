@@ -70,7 +70,7 @@ fB0sEpEp  = (1/(2*mB0s))*np.sqrt((mB0s - mEp - mEp)*(mB0s + mEp + mEp)*(mB0s + m
 
 # Defining the experimental results (29)
 
-#========== Decay rates (15) ===========#
+#========== Decay rates (28) ===========#
 BpK0bKp_exp, BpK0bKp_inc = 1.31e-6, 0.14e-6
 BpP0Pp_exp, BpP0Pp_inc   = 5.31e-6, 0.26e-6
 B0K0K0b_exp, B0K0K0b_inc = 1.21e-6, 0.16e-6
@@ -103,7 +103,7 @@ B0sEE_exp, B0sEE_inc     = 100e-6, 107e-6
 B0sEEp_exp, B0sEEp_inc   = 25e-6, 23e-6
 B0sEpEp_exp, B0sEpEp_inc = 33e-6, 7e-6
 
-#========== Direct CP asymmetries (11) ==========#
+#========== Direct CP asymmetries (16) ==========#
 ACP_BpK0bKp_exp, ACP_BpK0bKp_inc = 0.04, 0.14
 ACP_BpP0Pp_exp, ACP_BpP0Pp_inc   = -0.01, 0.04
 ACP_B0K0K0b_exp, ACP_B0K0K0b_inc = 0.06, 0.26 #double check
@@ -124,7 +124,7 @@ ACP_BpEKp_exp, ACP_BpEKp_inc     = -0.37, 0.08
 ACP_BpEpKp_exp, ACP_BpEpKp_inc   = 0.004, 0.011
 ACP_B0EpK0_exp, ACP_B0EpK0_inc   = 0.06, 0.04
 
-#=========== Indirect CP asymmetries (3) ===========#
+#=========== Indirect CP asymmetries (5) ===========#
 SCP_B0PpPm_exp, SCP_B0PpPm_inc = -0.670, 0.03
 SCP_B0K0K0b_exp, SCP_B0K0K0b_inc = -1.08,0.49 #double check
 SCP_B0P0K0_exp, SCP_B0P0K0_inc = -0.64, 0.13 #Change of sign because of the final state is CP odd
