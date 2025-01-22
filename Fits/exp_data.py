@@ -129,7 +129,7 @@ SCP_B0PpPm_exp, SCP_B0PpPm_inc = -0.670, 0.03
 SCP_B0K0K0b_exp, SCP_B0K0K0b_inc = -1.08,0.49 #double check
 SCP_B0P0K0_exp, SCP_B0P0K0_inc = -0.64, 0.13 #Change of sign because of the final state is CP odd
 SCP_B0sKpKm_exp, SCP_B0sKpKm_inc = 0.14, 0.03
-SCP_B0EpK0_exp, SCP_B0EpK0_inc = 0.63, 0.06 # I believe the sign is correct, but needs to be checked
+SCP_B0EpK0_exp, SCP_B0EpK0_inc = -0.63, 0.06 # I believe the sign is correct, but needs to be checked
 
 
 #=========== CKM matrix elements ===========#
