@@ -14,7 +14,7 @@ good_fits = []
 count = 0
 error = []
 
-n = 2000 # Number of attemps
+n = 1 # Number of attemps
 for i in tqdm(range(n),leave = True):
     rand_T, rand_C, rand_Puc, rand_A, rand_PAuc, rand_Ptc, rand_PAtc = rd.random()*10,rd.random()*10,rd.random()*10,rd.random()*10,rd.random()*10,rd.random()*10,rd.random()*10
     rand_delC,rand_delP,rand_delA,rand_delPA,rand_delP2,rand_delPA2 = rd.random()*2*np.pi,rd.random()*2*np.pi,rd.random()*2*np.pi,rd.random()*2*np.pi,rd.random()*2*np.pi,rd.random()*2*np.pi
@@ -78,3 +78,5 @@ print("===========Results==========")
 print("Minimum fval =",res_array[ind_min])
 print("p_value =",stats.chi2.sf(res_array[ind_min], df=5))
 print("Parameters = ",np.array(parameters[ind_min]))
+
+print("p-value =",stats.chi2.sf(57,df = 23))
