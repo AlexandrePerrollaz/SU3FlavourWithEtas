@@ -3,28 +3,27 @@ from iminuit import Minuit
 from concurrent.futures import ProcessPoolExecutor
 from tqdm import tqdm
 from scipy import stats
-from chi2_functions import chi2,chi2Minuit,chi2MinuitWithoutEta,chi2MinuitNoEtaEta,chi2MinuitNoEtaEtaDS1only  # Assuming chi2 is defined to accept 25 parameters
+from chi2_functions import chi2,chi2Minuit,chi2MinuitWithoutEta,chi2MinuitNoEtaEta,chi2MinuitNoEtaEtaDS1only,chi2MinuitNoEtaEtaToverCfixed  # Assuming chi2 is defined to accept 25 parameters
 
 number_guess = 2000
-num_param = 21
-dof = 2
+num_param = 19
+dof = 25
 
 def minimize_with_guess(guess):
     try:
         # Initialize Minuit with parameters from guess
         minuit = Minuit(
-            chi2MinuitNoEtaEtaDS1only,
-            ampT8X8=guess[0], ampC8X8=guess[1], ampPuc8X8=guess[2], ampA8X8=guess[3],
-            ampPAuc8X8=guess[4], ampPtc8X8=guess[5], ampPAtc8X8=guess[6],
-            delC8X8=guess[7], delPuc8X8=guess[8], delA8X8=guess[9],
-            delPAuc8X8=guess[10], delPtc8X8=guess[11], delPAtc8X8=guess[12],
-            ampT8X1=guess[13], ampC8X1=guess[14], ampPuc8X1=guess[15],
-            ampPtc8X1=guess[16], delT8X1=guess[17], delC8X1=guess[18],
-            delPuc8X1=guess[19], delPtc8X1=guess[20]
+            chi2MinuitNoEtaEtaToverCfixed,
+            ampT8X8=guess[0], ampPuc8X8=guess[1], ampA8X8=guess[2],
+            ampPAuc8X8=guess[3], ampPtc8X8=guess[4], ampPAtc8X8=guess[5],
+            delC8X8=guess[6], delPuc8X8=guess[7], delA8X8=guess[8],
+            delPAuc8X8=guess[9], delPtc8X8=guess[10], delPAtc8X8=guess[11],
+            ampT8X1=guess[12], ampPuc8X1=guess[13],
+            ampPtc8X1=guess[14], delT8X1=guess[15], delC8X1=guess[16],
+            delPuc8X1=guess[17], delPtc8X1=guess[18]
         )
         # Perform minimization
         minuit.limits["ampT8X8"] = (0,None)
-        minuit.limits["ampC8X8"] = (0,None)
         minuit.limits["ampPuc8X8"] = (0,None)
         minuit.limits["ampA8X8"] = (0,None)
         minuit.limits["ampPAuc8X8"] = (0,None)
@@ -32,7 +31,6 @@ def minimize_with_guess(guess):
         minuit.limits["ampPAtc8X8"] = (0,None)
 
         minuit.limits["ampT8X1"] = (0,None)
-        minuit.limits["ampC8X1"] = (0,None)
         minuit.limits["ampPuc8X1"] = (0,None)
         minuit.limits["ampPtc8X1"] = (0,None)
 
