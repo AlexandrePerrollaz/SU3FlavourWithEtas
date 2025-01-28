@@ -5,22 +5,24 @@ from tqdm import tqdm
 from scipy import stats
 from chi2_functions import chi2,chi2Minuit,chi2MinuitWithoutEta,chi2MinuitNoEtaEta,chi2MinuitNoEtaEtaDS1only  # Assuming chi2 is defined to accept 25 parameters
 
-number_guess = 20000
-num_param = 21
-dof = 2
+number_guess = 5000
+num_param = 25
+dof = 24
 
 def minimize_with_guess(guess):
     try:
         # Initialize Minuit with parameters from guess
         minuit = Minuit(
-            chi2MinuitNoEtaEtaDS1only,
+            chi2Minuit,
             ampT8X8=guess[0], ampC8X8=guess[1], ampPuc8X8=guess[2], ampA8X8=guess[3],
             ampPAuc8X8=guess[4], ampPtc8X8=guess[5], ampPAtc8X8=guess[6],
             delC8X8=guess[7], delPuc8X8=guess[8], delA8X8=guess[9],
             delPAuc8X8=guess[10], delPtc8X8=guess[11], delPAtc8X8=guess[12],
             ampT8X1=guess[13], ampC8X1=guess[14], ampPuc8X1=guess[15],
             ampPtc8X1=guess[16], delT8X1=guess[17], delC8X1=guess[18],
-            delPuc8X1=guess[19], delPtc8X1=guess[20]
+            delPuc8X1=guess[19], delPtc8X1=guess[20],
+            ampC1X1 = guess[21], ampPtc1X1 = guess[22], 
+            delC1X1 = guess[23], delPtc1X1 = guess[24]
         )
         # Perform minimization
         minuit.limits["ampT8X8"] = (0,None)
@@ -36,6 +38,9 @@ def minimize_with_guess(guess):
         minuit.limits["ampPuc8X1"] = (0,None)
         minuit.limits["ampPtc8X1"] = (0,None)
 
+        minuit.limits["ampC1X1"] = (0,None)
+        minuit.limits["ampPtc1X1"] = (0,None)
+
         minuit.limits["delC8X8"] = (0,2*np.pi)
         minuit.limits["delPuc8X8"] = (0,2*np.pi)
         minuit.limits["delA8X8"] = (0,2*np.pi)
@@ -47,6 +52,10 @@ def minimize_with_guess(guess):
         minuit.limits["delC8X1"] = (0,2*np.pi)
         minuit.limits["delPuc8X1"] = (0,2*np.pi)
         minuit.limits["delPtc8X1"] = (0,2*np.pi)
+
+        minuit.limits["delC1X1"] = (0,2*np.pi)
+        minuit.limits["delPtc1X1"] = (0,2*np.pi)
+
         minuit.migrad()
 
         # Return successful result
