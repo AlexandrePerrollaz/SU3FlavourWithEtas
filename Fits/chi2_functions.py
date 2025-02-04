@@ -4757,3 +4757,329 @@ def chi2MinuitWithTheta(ampT8X8,ampC8X8,ampPuc8X8,ampA8X8,ampPAuc8X8,ampPtc8X8,a
     chi2_total = chi2_BR + chi2_ACP + chi2_SCP
     return chi2_total
 
+def chi2MinuitNonet(ampT9X9,ampC9X9,ampPuc9X9,ampA9X9,ampPAuc9X9,ampPtc9X9,ampPAtc9X9,delC9X9,delPuc9X9,delA9X9,delPAuc9X9,delPtc9X9,delPAtc9X9):
+    root2 = np.sqrt(2)
+    root3 = np.sqrt(3)
+    root6 = np.sqrt(6)
+    Vud,Vus,Vub,Vtd,Vts,Vtb,gamma,beta,betas = Vud_exp,Vus_exp,Vub_exp,Vtd_exp,Vts_exp,Vtb_exp,gamma_exp,beta_exp,betas_exp
+
+    #===CKM elements===#
+    Vubd = Vub*Vud*np.exp(1j*gamma)
+    Vtbd = Vtb*Vtd*np.exp(-1j*beta)
+    Vubs = Vub*Vus*np.exp(1j*gamma)
+    Vtbs = -Vtb*Vts*np.exp(-1j*betas)
+
+    #===Conjugate CKM elements===#
+    Vubdb = Vub*Vud*np.exp(-1j*gamma)
+    Vtbdb = Vtb*Vtd*np.exp(1j*beta)
+    Vubsb = Vub*Vus*np.exp(-1j*gamma)
+    Vtbsb = -Vtb*Vts*np.exp(1j*betas)
+
+    #===Diagrams with strong phases===#
+    TT9X9 = abs(ampT9X9)
+    CC9X9 = abs(ampC9X9)*np.exp(1j*delC9X9)
+    PPuc9X9= abs(ampPuc9X9)*np.exp(1j*delPuc9X9)
+    AA9X9 = abs(ampA9X9)*np.exp(1j*delA9X9)
+    PAuc9X9 = abs(ampPAuc9X9)*np.exp(1j*delPAuc9X9)
+    PPtc9X9 = abs(ampPtc9X9)*np.exp(1j*delPtc9X9)
+    PAtc9X9 = abs(ampPAtc9X9)*np.exp(1j*delPAtc9X9)
+    
+    #===Diagrams with weak phases===#
+    #=== 9X9 Final states ===#
+    #===Delta S = 0===#
+    TTd9X9 = TT9X9*Vubd
+    CCd9X9 = CC9X9*Vubd
+    PPucd9X9 = PPuc9X9*Vubd
+    AAd9X9 = AA9X9*Vubd
+    PAucd9X9 = PAuc9X9*Vubd
+    PPtcd9X9 = PPtc9X9*Vtbd
+    PAtcd9X9 = PAtc9X9*Vtbd
+
+    #===EWP Diagrams===#
+    PEWTd9X9 = -3/4.0 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9+AA9X9)+(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbd
+    PEWCd9X9 = -3/4.0 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9-AA9X9)-(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbd
+    PEWAd9X9 = -3/2.0 * (c9+c10)/(c1+c2)*AA9X9*Vtbd
+
+    #===Delta S = 1===#
+    TTs9X9 = TT9X9*Vubs
+    CCs9X9 = CC9X9*Vubs
+    PPucs9X9 = PPuc9X9*Vubs
+    AAs9X9 = AA9X9*Vubs
+    PAucs9X9 = PAuc9X9*Vubs
+    PPtcs9X9 = PPtc9X9*Vtbs
+    PAtcs9X9 = PAtc9X9*Vtbs
+
+    #===EWP Diagrams===#
+    PEWTs9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9+AA9X9)+(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbs
+    PEWCs9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9-AA9X9)-(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbs
+    PEWAs9X9 = -3/2 * (c9+c10)/(c1+c2)*AA9X9*Vtbs
+
+
+    #===Diagrams with conjugate weak phases===#
+    TTdb9X9 = TT9X9*Vubdb
+    CCdb9X9 = CC9X9*Vubdb
+    PPucdb9X9 = PPuc9X9*Vubdb
+    AAdb9X9 = AA9X9*Vubdb
+    PAucdb9X9 = PAuc9X9*Vubdb
+    PPtcdb9X9 = PPtc9X9*Vtbdb
+    PAtcdb9X9 = PAtc9X9*Vtbdb
+
+    #===EWP Diagrams===#
+    PEWTdb9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9+AA9X9)+(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbdb
+    PEWCdb9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9-AA9X9)-(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbdb
+    PEWAdb9X9 = -3/2 * (c9+c10)/(c1+c2)*AA9X9*Vtbdb
+
+
+    #===Delta S = 1===#
+    TTsb9X9 = TT9X9*Vubsb
+    CCsb9X9 = CC9X9*Vubsb
+    PPucsb9X9 = PPuc9X9*Vubsb
+    AAsb9X9 = AA9X9*Vubsb
+    PAucsb9X9 = PAuc9X9*Vubsb
+    PPtcsb9X9 = PPtc9X9*Vtbsb
+    PAtcsb9X9 = PAtc9X9*Vtbsb
+
+
+    #===EWP Diagrams===#
+    PEWTsb9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9+AA9X9)+(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbsb
+    PEWCsb9X9 = -3/4 * ((c9+c10)/(c1+c2)*(TT9X9+CC9X9-AA9X9)-(c9-c10)/(c1-c2)*(TT9X9-CC9X9-AA9X9))*Vtbsb
+    PEWAsb9X9 = -3/2 * (c9+c10)/(c1+c2)*AA9X9*Vtbsb
+
+
+    #===Diagram contributions to amplitudes===#
+
+    DIAGd09X9 = [[0,0,1,1,0,1,0,0,-1/3,0],\
+                [-1/root2,-1/root2,0,0,0,0,0,-1/root2,-1/root2,0],\
+                [-1/root6,-1/root6,-2/root6,-2/root6,0,-2/root6,0,-1/root6,-1/(3*root6),0],\
+                [0,0,1,0,1,1,1,0,-1/3,-2/3],\
+                [-1,0,-1,0,-1,-1,-1,0,-2/3,-1/3],\
+                [0,0,0,0,-1,0,-1,0,0,-1/3],\
+                [0,-1/root2,1/root2,0,1/root2,1/root2,1/root2,-1/root2,-1/(3*root2),1/(3*root2)],\
+                [0,0,-1/root3,0,0,-1/root3,0,0,1/(3*root3),1/root3],\
+                [0,1/(3*root2),1/(3*root2),0,1/root2,1/(3*root2),1/root2,1/(3*root2),-1/(9*root2),-1/(3*root2)],\
+                [-1,0,-1,0,0,-1,0,0,-2/3,0],\
+                [0,-1/root2,1/root2,0,0,1/root2,0,-1/root2,-1/(3*root2),0],\
+                [0,-1/root6,1/root6,0,0,1/root6,0,-1/root6,-1/(3*root6),0]]
+    DIAGd19X9 = [[0,0,1,1,0,1,0,0,-1/3,0],\
+                [-1/root2,-1/root2,-1/root2,-1/root2,0,-1/root2,0,-1/root2,-root2/3,0],\
+                [-1/root6,-1/root6,1/root6,1/root6,0,1/root6,0,-1/root6,-4/(3*root6),0],\
+                [-1,0,-1,0,0,-1,0,0,-2/3,0],\
+                [0,-1/root2,1/root2,0,0,1/root2,0,-1/root2,-1/(3*root2),0],\
+                [0,-1/root6,1/root6,0,0,1/root6,0,-1/root6,-1/(3*root6),0],\
+                [0,0,1,0,1,1,1,0,-1/3,-2/3],\
+                [0,0,0,0,-1,0,-1,0,0,-1/3],\
+                [-1,0,-1,0,-1,-1,-1,0,-2/3,-1/3],\
+                [0,0,0,0,1/root2,0,1/root2,0,0,1/(3*root2)],\
+                [0,-1/root3,0,0,0,0,0,-1/root3,0,1/root3],\
+                [0,-root2/3,2*root2/3,0,1/root2,2*root2/3,1/root2,-root2/3,-2*root2/9,-1/(3*root2)]]
+
+
+
+    #===Vector of diagrams===#
+    diagramsd09X9 = np.array([TTd9X9,CCd9X9,PPucd9X9,AAd9X9,PAucd9X9,PPtcd9X9,PAtcd9X9,PEWTd9X9,PEWCd9X9,PEWAd9X9])
+    diagramsd19X9 = np.array([TTs9X9,CCs9X9,PPucs9X9,AAs9X9,PAucs9X9,PPtcs9X9,PAtcs9X9,PEWTs9X9,PEWCs9X9,PEWAs9X9])
+    diagramsd0b9X9= np.array([TTdb9X9,CCdb9X9,PPucdb9X9,AAdb9X9,PAucdb9X9,PPtcdb9X9,PAtcdb9X9,PEWTdb9X9,PEWCdb9X9,PEWAdb9X9])
+    diagramsd1b9X9= np.array([TTsb9X9,CCsb9X9,PPucsb9X9,AAsb9X9,PAucsb9X9,PPtcsb9X9,PAtcsb9X9,PEWTsb9X9,PEWCsb9X9,PEWAsb9X9])
+
+
+    #===Amplitudes===#
+    #===Initialising amplitudes===#
+    amplitudes_DeltaS09X9  = np.zeros(12)
+    amplitudes_DeltaS19X9  = np.zeros(12)
+    amplitudes_DeltaS0b9X9 = np.zeros(12)
+    amplitudes_DeltaS1b9X9 = np.zeros(12)
+
+    #===Calculating amplitudes===#
+    amplitudes_DeltaS09X9 = np.matmul(DIAGd09X9,diagramsd09X9)
+    amplitudes_DeltaS19X9 = np.matmul(DIAGd19X9,diagramsd19X9)
+    amplitudes_DeltaS0b9X9= np.matmul(DIAGd09X9,diagramsd0b9X9)
+    amplitudes_DeltaS1b9X9= np.matmul(DIAGd19X9,diagramsd1b9X9)
+
+    #===Calculating branching ratios===#
+    #===Branching ratios Delta S = 0===#
+    BR_BpK0bKp = (fBpK0bKp/(16*math.pi*mBp**2))*(abs(amplitudes_DeltaS09X9[0])**2 + abs(amplitudes_DeltaS0b9X9[0])**2)/GammaBp
+    BR_BpP0Pp  = (fBpP0Pp/(16*math.pi*mBp**2))*(abs(amplitudes_DeltaS09X9[1])**2 + abs(amplitudes_DeltaS0b9X9[1])**2)/GammaBp
+    BR_BpEPp   = (fBpEPp/(16*math.pi*mBp**2))*(abs(amplitude_eta(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2 + abs(amplitude_eta(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2)/GammaBp
+    BR_BpEpPp  = (fBpEpPp/(16*math.pi*mBp**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2)/GammaBp
+    BR_B0K0K0b = (fB0K0K0b/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS09X9[3])**2 +abs(amplitudes_DeltaS0b9X9[3])**2)/GammaB0
+    BR_B0PpPm  = (fB0PpPm/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS09X9[4])**2 + abs(amplitudes_DeltaS0b9X9[4])**2)/GammaB0
+    BR_B0KpKm  = (fB0KpKm/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS09X9[5])**2 + abs(amplitudes_DeltaS0b9X9[5])**2)/GammaB0
+    BR_B0P0P0  = (fB0P0P0/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS09X9[6])**2 + abs(amplitudes_DeltaS0b9X9[6])**2)/GammaB0
+    BR_B0P0E   = (fB0P0E/(16*math.pi*mB0**2))*(abs(amplitude_eta(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2 + abs(amplitude_eta(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2)/GammaB0
+    BR_B0P0Ep  = (fB0P0Ep/(16*math.pi*mB0**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2)/GammaB0
+    BR_B0sPpKm = (fB0sPpKm/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS09X9[9])**2 + abs(amplitudes_DeltaS0b9X9[9])**2)/GammaB0s
+    BR_B0sP0K0b= (fB0sP0K0b/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS09X9[10])**2 + abs(amplitudes_DeltaS0b9X9[10])**2)/GammaB0s
+    BR_B0sEK0b = (fB0sEK0b/(16*math.pi*mB0s**2))*(abs(amplitude_eta(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2 + abs(amplitude_eta(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2)/GammaB0s
+    BR_B0sEpK0b= (fB0sEpK0b/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2)/GammaB0s
+    
+    BR_B0EE    = (fB0EE/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0])))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2)/GammaB0
+    BR_B0EEp   = (fB0EEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0])))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2)/GammaB0
+    BR_B0EpEp  = (fB0EpEp/(16*math.pi*mB0**2))*((abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0])))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2)/GammaB0
+
+    #===Branching ratios Delta S = 1===#
+    BR_BpPpK0  = (fBpPpK0/(16*math.pi*mBp**2))*(abs(amplitudes_DeltaS19X9[0])**2 + abs(amplitudes_DeltaS1b9X9[0])**2)/GammaBp
+    BR_BpP0Kp  = (fBpP0Kp/(16*math.pi*mBp**2))*(abs(amplitudes_DeltaS19X9[1])**2 + abs(amplitudes_DeltaS1b9X9[1])**2)/GammaBp
+    BR_BpEKp   = (fBpEKp/(16*math.pi*mBp**2))*(abs(amplitude_eta(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2 + abs(amplitude_eta(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2)/GammaBp
+    BR_BpEpKp  = (fBpEpKp/(16*math.pi*mBp**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2)/GammaBp
+    BR_B0PmKp  = (fB0PmKp/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS19X9[3])**2 + abs(amplitudes_DeltaS1b9X9[3])**2)/GammaB0
+    BR_B0P0K0  = (fB0P0K0/(16*math.pi*mB0**2))*(abs(amplitudes_DeltaS19X9[4])**2 + abs(amplitudes_DeltaS1b9X9[4])**2)/GammaB0
+    BR_B0EK0   = (fB0EK0/(16*math.pi*mB0**2))*(abs(amplitude_eta(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2 + abs(amplitude_eta(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2)/GammaB0
+    BR_B0EpK0  = (fB0EpK0/(16*math.pi*mB0**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2)/GammaB0
+    BR_B0sK0K0b= (fB0sK0K0b/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS19X9[6])**2 + abs(amplitudes_DeltaS1b9X9[6])**2)/GammaB0s
+    BR_B0sPpPm = (fB0sPpPm/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS19X9[7])**2 + abs(amplitudes_DeltaS1b9X9[7])**2)/GammaB0s
+    BR_B0sKpKm = (fB0sKpKm/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS19X9[8])**2 + abs(amplitudes_DeltaS1b9X9[8])**2)/GammaB0s
+    BR_B0sP0P0 = (fB0sP0P0/(16*math.pi*mB0s**2))*(abs(amplitudes_DeltaS19X9[9])**2 + abs(amplitudes_DeltaS1b9X9[9])**2)/GammaB0s
+    BR_B0sP0E  = (fB0sP0E/(16*math.pi*mB0s**2))*(abs(amplitude_eta(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2 + abs(amplitude_eta(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2)/GammaB0s
+    BR_B0sP0Ep = (fB0sP0Ep/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2)/GammaB0s
+
+    BR_B0sEE   = (fB0sEE/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2)/GammaB0s
+    BR_B0sEEp  = (fB0sEEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2)/GammaB0s
+    BR_B0sEpEp = (fB0sEpEp/(16*math.pi*mB0s**2))*(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2)/GammaB0s
+
+    #===Direct CP asymmetries Delta S = 0===#
+    ACP_BpK0bKp = (abs(amplitudes_DeltaS0b9X9[0])**2 - abs(amplitudes_DeltaS09X9[0])**2)/(abs(amplitudes_DeltaS0b9X9[0])**2 + abs(amplitudes_DeltaS09X9[0])**2)
+    ACP_BpP0Pp  = (abs(amplitudes_DeltaS0b9X9[1])**2 - abs(amplitudes_DeltaS09X9[1])**2)/(abs(amplitudes_DeltaS0b9X9[1])**2 + abs(amplitudes_DeltaS09X9[1])**2)
+    ACP_BpEPp   = (abs(amplitude_eta(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 - abs(amplitude_eta(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)/(abs(amplitude_eta(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 + abs(amplitude_eta(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)
+    ACP_BpEpPp  = (abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)
+    ACP_B0K0K0b = (abs(amplitudes_DeltaS0b9X9[3])**2 - abs(amplitudes_DeltaS09X9[3]**2))/(abs(amplitudes_DeltaS0b9X9[3])**2 + abs(amplitudes_DeltaS09X9[3])**2)
+    ACP_B0PpPm  = (abs(amplitudes_DeltaS0b9X9[4])**2 - abs(amplitudes_DeltaS09X9[4])**2)/(abs(amplitudes_DeltaS0b9X9[4])**2 + abs(amplitudes_DeltaS09X9[4])**2)
+    ACP_B0KpKm  = (abs(amplitudes_DeltaS0b9X9[5])**2 - abs(amplitudes_DeltaS09X9[5])**2)/(abs(amplitudes_DeltaS0b9X9[5])**2 + abs(amplitudes_DeltaS09X9[5])**2)
+    ACP_B0P0P0  = (abs(amplitudes_DeltaS0b9X9[6])**2 - abs(amplitudes_DeltaS09X9[6])**2)/(abs(amplitudes_DeltaS0b9X9[6])**2 + abs(amplitudes_DeltaS09X9[6])**2)
+    ACP_B0P0E   = (abs(amplitude_eta(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2 - abs(amplitude_eta(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2)/(abs(amplitude_eta(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2 + abs(amplitude_eta(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2)
+    ACP_B0P0Ep  = (abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[7],amplitudes_DeltaS0b9X9[1]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS09X9[7],amplitudes_DeltaS09X9[1]))**2)
+    ACP_B0sPpKm = (abs(amplitudes_DeltaS0b9X9[9])**2 - abs(amplitudes_DeltaS09X9[9])**2)/(abs(amplitudes_DeltaS0b9X9[9])**2 + abs(amplitudes_DeltaS09X9[9])**2)
+    ACP_B0sP0K0b= (abs(amplitudes_DeltaS0b9X9[10])**2 - abs(amplitudes_DeltaS09X9[10])**2)/(abs(amplitudes_DeltaS0b9X9[10])**2 + abs(amplitudes_DeltaS09X9[10])**2)
+    ACP_B0sEK0b = (abs(amplitude_eta(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2 - abs(amplitude_eta(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2)/(abs(amplitude_eta(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2 + abs(amplitude_eta(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2)
+    ACP_B0sEpK0b= (abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS0b9X9[11],amplitudes_DeltaS0b9X9[3]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS09X9[11],amplitudes_DeltaS09X9[3]))**2)
+
+    ACP_B0EE    = (abs(amplitude_eta_eta(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 - abs(amplitude_eta_eta(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)/(abs(amplitude_eta_eta(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)
+    ACP_B0EEp   = (abs(amplitude_eta_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 - abs(amplitude_eta_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)/(abs(amplitude_eta_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)
+    ACP_B0EpEp  = (abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 - abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)/(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS0b9X9[8],amplitudes_DeltaS0b9X9[2],amplitudes_DeltaS0b9X9[0]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS09X9[8],amplitudes_DeltaS09X9[2],amplitudes_DeltaS09X9[0]))**2)
+    
+    #===Direct CP asymmetries Delta S = 1===#
+    ACP_BpPpK0  = (abs(amplitudes_DeltaS1b9X9[0])**2 - abs(amplitudes_DeltaS19X9[0])**2)/(abs(amplitudes_DeltaS1b9X9[0])**2 + abs(amplitudes_DeltaS19X9[0])**2)
+    ACP_BpP0Kp  = (abs(amplitudes_DeltaS1b9X9[1])**2 - abs(amplitudes_DeltaS19X9[1])**2)/(abs(amplitudes_DeltaS1b9X9[1])**2 + abs(amplitudes_DeltaS19X9[1])**2)
+    ACP_BpEKp   = (abs(amplitude_eta(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2 - abs(amplitude_eta(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2)/(abs(amplitude_eta(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2 + abs(amplitude_eta(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2)
+    ACP_BpEpKp  = (abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[2],amplitudes_DeltaS1b9X9[0]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS19X9[2],amplitudes_DeltaS19X9[0]))**2)
+    ACP_B0PmKp  = (abs(amplitudes_DeltaS1b9X9[3])**2 - abs(amplitudes_DeltaS19X9[3])**2)/(abs(amplitudes_DeltaS1b9X9[3])**2 + abs(amplitudes_DeltaS19X9[3])**2)
+    ACP_B0P0K0  = (abs(amplitudes_DeltaS1b9X9[4])**2 - abs(amplitudes_DeltaS19X9[4])**2)/(abs(amplitudes_DeltaS1b9X9[4])**2 + abs(amplitudes_DeltaS19X9[4])**2)
+    ACP_B0EK0   = (abs(amplitude_eta(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2 - abs(amplitude_eta(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2)/(abs(amplitude_eta(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2 + abs(amplitude_eta(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2)
+    ACP_B0EpK0  = (abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2)
+    ACP_B0sK0K0b= (abs(amplitudes_DeltaS1b9X9[6])**2 - abs(amplitudes_DeltaS19X9[6])**2)/(abs(amplitudes_DeltaS1b9X9[6])**2 + abs(amplitudes_DeltaS19X9[6])**2)
+    ACP_B0sPpPm = (abs(amplitudes_DeltaS1b9X9[7])**2 - abs(amplitudes_DeltaS19X9[7])**2)/(abs(amplitudes_DeltaS1b9X9[7])**2 + abs(amplitudes_DeltaS19X9[7])**2)
+    ACP_B0sKpKm = (abs(amplitudes_DeltaS1b9X9[8])**2 - abs(amplitudes_DeltaS19X9[8])**2)/(abs(amplitudes_DeltaS1b9X9[8])**2 + abs(amplitudes_DeltaS19X9[8])**2)
+    ACP_B0sP0P0 = (abs(amplitudes_DeltaS1b9X9[9])**2 - abs(amplitudes_DeltaS19X9[9])**2)/(abs(amplitudes_DeltaS1b9X9[9])**2 + abs(amplitudes_DeltaS19X9[9])**2)
+    ACP_B0sP0E  = (abs(amplitude_eta(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2 - abs(amplitude_eta(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2)/(abs(amplitude_eta(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2 + abs(amplitude_eta(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2)
+    ACP_B0sP0Ep = (abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2 - abs(amplitude_eta_prime(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2)/(abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[10],amplitudes_DeltaS1b9X9[2]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS19X9[10],amplitudes_DeltaS19X9[2]))**2)
+
+    ACP_B0sEE   = (abs(amplitude_eta_eta(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 - abs(amplitude_eta_eta(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)/(abs(amplitude_eta_eta(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 + abs(amplitude_eta_eta(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)
+    ACP_B0sEEp  = (abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 - abs(amplitude_eta_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)/(abs(amplitude_eta_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 + abs(amplitude_eta_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)
+    ACP_B0sEpEp = (abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 - abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)/(abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS1b9X9[11],amplitudes_DeltaS1b9X9[3],amplitudes_DeltaS1b9X9[0]))**2 + abs(amplitude_eta_prime_eta_prime(amplitudes_DeltaS19X9[11],amplitudes_DeltaS19X9[3],amplitudes_DeltaS19X9[0]))**2)
+
+    #===Indirect CP asymmetries Delta S = 0===#
+    SCP_B0K0K0b    = 2*(np.exp(-2j*beta)*np.conjugate(amplitudes_DeltaS09X9[3])*amplitudes_DeltaS0b9X9[3])/(abs(amplitudes_DeltaS0b9X9[3])**2 + abs(amplitudes_DeltaS09X9[3])**2)
+    Im_SCP_B0K0K0b = SCP_B0K0K0b.imag
+    SCP_B0PpPm     = 2*(np.exp(-2j*beta)*np.conjugate(amplitudes_DeltaS09X9[4])*amplitudes_DeltaS0b9X9[4])/(abs(amplitudes_DeltaS0b9X9[4])**2 + abs(amplitudes_DeltaS09X9[4])**2)
+    Im_SCP_B0PpPm  = SCP_B0PpPm.imag
+
+    #===Indirect CP asymmetries Delta S = 1===#
+    SCP_B0P0K0     = 2*(np.exp(-2j*beta)*np.conjugate(amplitudes_DeltaS19X9[4])*amplitudes_DeltaS1b9X9[4])/(abs(amplitudes_DeltaS1b9X9[4])**2 + abs(amplitudes_DeltaS19X9[4])**2)
+    Im_SCP_B0P0K0  = SCP_B0P0K0.imag
+    SCP_B0sKpKm    = 2*(np.exp(-2j*betas)*np.conjugate(amplitudes_DeltaS19X9[8])*amplitudes_DeltaS1b9X9[8])/(abs(amplitudes_DeltaS1b9X9[8])**2 + abs(amplitudes_DeltaS19X9[8])**2)
+    Im_SCP_B0sKpKm = SCP_B0sKpKm.imag
+    SCP_B0EpK0     = 2*(np.exp(-2j*beta)*np.conjugate(amplitude_eta_prime(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))*amplitude_eta_prime(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))/(abs(amplitude_eta_prime(amplitudes_DeltaS1b9X9[5],amplitudes_DeltaS1b9X9[1]))**2 + abs(amplitude_eta_prime(amplitudes_DeltaS19X9[5],amplitudes_DeltaS19X9[1]))**2)
+    Im_SCP_B0EpK0  = SCP_B0EpK0.imag
+
+    #===Chi2 Contributions===#
+    #===Branching ratios===#
+    chi2_BR_BpK0bKp = (BR_BpK0bKp - BpK0bKp_exp)**2/(BpK0bKp_inc**2)
+    chi2_BR_BpP0Pp  = (BR_BpP0Pp - BpP0Pp_exp)**2/(BpP0Pp_inc**2)
+    chi2_BR_BpEPp   = (BR_BpEPp - BpEPp_exp)**2/(BpEPp_inc**2)
+    chi2_BR_BpEpPp  = (BR_BpEpPp - BpEpPp_exp)**2/(BpEpPp_inc**2)
+    chi2_BR_B0K0K0b = (BR_B0K0K0b - B0K0K0b_exp)**2/(B0K0K0b_inc**2)
+    chi2_BR_B0PpPm  = (BR_B0PpPm - B0PpPm_exp)**2/(B0PpPm_inc**2)
+    chi2_BR_B0KpKm  = (BR_B0KpKm - B0KpKm_exp)**2/(B0KpKm_inc**2)
+    chi2_BR_B0P0P0  = (BR_B0P0P0 - B0P0P0_exp)**2/(B0P0P0_inc**2)
+    chi2_BR_B0P0E   = (BR_B0P0E - B0P0E_exp)**2/(B0P0E_inc**2)
+    chi2_BR_B0P0Ep  = (BR_B0P0Ep - B0P0Ep_exp)**2/(B0P0Ep_inc**2)
+    chi2_BR_B0EE    = (BR_B0EE - B0EE_exp)**2/(B0EE_inc**2)
+    #chi2_BR_B0EEp   = (BR_B0EEp - B0EEp_exp)**2/(B0EEp_inc**2)
+    chi2_BR_B0EpEp  = (BR_B0EpEp - B0EpEp_exp)**2/(B0EpEp_inc**2)
+    chi2_BR_B0sPpKm = (BR_B0sPpKm - B0sPpKm_exp)**2/(B0sPpKm_inc**2)
+    #chi2_BR_B0sP0K0b= (BR_B0sP0K0b - B0sP0K0b_exp)**2/(B0sP0K0b_inc**2)
+    #chi2_BR_B0sEK0b = (BR_B0sEK0b - B0sEK0b_exp)**2/(B0sEK0b_inc**2)
+    #chi2_BR_B0sEpK0b= (BR_B0sEpK0b - B0sEpK0b_exp)**2/(B0sEpK0b_inc**2)
+
+    chi2_BR_BpPpK0  = (BR_BpPpK0 - BpPpK0_exp)**2/(BpPpK0_inc**2)
+    chi2_BR_BpP0Kp  = (BR_BpP0Kp - BpP0Kp_exp)**2/(BpP0Kp_inc**2)
+    chi2_BR_BpEKp   = (BR_BpEKp - BpEKp_exp)**2/(BpEKp_inc**2)
+    chi2_BR_BpEpKp  = (BR_BpEpKp - BpEpKp_exp)**2/(BpEpKp_inc**2)
+    chi2_BR_B0PmKp  = (BR_B0PmKp - B0PmKp_exp)**2/(B0PmKp_inc**2)
+    chi2_BR_B0P0K0  = (BR_B0P0K0 - B0P0K0_exp)**2/(B0P0K0_inc**2)
+    chi2_BR_B0EK0   = (BR_B0EK0 - B0EK0_exp)**2/(B0EK0_inc**2)
+    chi2_BR_B0EpK0  = (BR_B0EpK0 - B0EpK0_exp)**2/(B0EpK0_inc**2)
+    chi2_BR_B0sK0K0b= (BR_B0sK0K0b - B0sK0K0b_exp)**2/(B0sK0K0b_inc**2)
+    chi2_BR_B0sPpPm = (BR_B0sPpPm - B0sPpPm_exp)**2/(B0sPpPm_inc**2)
+    chi2_BR_B0sKpKm = (BR_B0sKpKm - B0sKpKm_exp)**2/(B0sKpKm_inc**2)
+    chi2_BR_B0sP0P0 = (BR_B0sP0P0 - B0sP0P0_exp)**2/(B0sP0P0_inc**2)
+    #chi2_BR_B0sP0E  = (BR_B0sP0E - B0sP0E_exp)**2/(B0sP0E_inc**2)
+    #chi2_BR_B0sP0Ep = (BR_B0sP0Ep - B0sP0Ep_exp)**2/(B0sP0Ep_inc**2)
+    chi2_BR_B0sEE   = (BR_B0sEE - B0sEE_exp)**2/(B0sEE_inc**2)
+    chi2_BR_B0sEEp  = (BR_B0sEEp - B0sEEp_exp)**2/(B0sEEp_inc**2)
+    chi2_BR_B0sEpEp = (BR_B0sEpEp - B0sEpEp_exp)**2/(B0sEpEp_inc**2)
+
+    #===Direct CP asymmetries===#
+    chi2_ACP_BpK0bKp = (ACP_BpK0bKp - ACP_BpK0bKp_exp)**2/(ACP_BpK0bKp_inc**2)
+    chi2_ACP_BpP0Pp  = (ACP_BpP0Pp - ACP_BpP0Pp_exp)**2/(ACP_BpP0Pp_inc**2)
+    chi2_ACP_BpEPp   = (ACP_BpEPp - ACP_BpEPp_exp)**2/(ACP_BpEPp_inc**2)
+    chi2_ACP_BpEpPp  = (ACP_BpEpPp - ACP_BpEpPp_exp)**2/(ACP_BpEpPp_inc**2)
+    chi2_ACP_B0K0K0b = (ACP_B0K0K0b - ACP_B0K0K0b_exp)**2/(ACP_B0K0K0b_inc**2)
+    chi2_ACP_B0PpPm  = (ACP_B0PpPm - ACP_B0PpPm_exp)**2/(ACP_B0PpPm_inc**2)
+    #chi2_ACP_B0KpKm  = (ACP_B0KpKm - ACP_B0KpKm_exp)**2/(ACP_B0KpKm_inc**2)
+    chi2_ACP_B0P0P0  = (ACP_B0P0P0 - ACP_B0P0P0_exp)**2/(ACP_B0P0P0_inc**2)
+    #chi2_ACP_B0P0E   = (ACP_B0P0E - ACP_B0P0E_exp)**2/(ACP_B0P0E_inc**2)
+    #chi2_ACP_B0P0Ep  = (ACP_B0P0Ep - ACP_B0P0Ep_exp)**2/(ACP_B0P0Ep_inc**2)
+    #chi2_ACP_B0EE    = (ACP_B0EE - ACP_B0EE_exp)**2/(ACP_B0EE_inc**2)
+    #chi2_ACP_B0EEp   = (ACP_B0EEp - ACP_B0EEp_exp)**2/(ACP_B0EEp_inc**2)
+    #chi2_ACP_B0EpEp  = (ACP_B0EpEp - ACP_B0EpEp_exp)**2/(ACP_B0EpEp_inc**2)
+    chi2_ACP_B0sPpKm = (ACP_B0sPpKm - ACP_B0sPpKm_exp)**2/(ACP_B0sPpKm_inc**2)
+    #chi2_ACP_B0sP0K0b= (ACP_B0sP0K0b - ACP_B0sP0K0b_exp)**2/(ACP_B0sP0K0b_inc**2)
+    #chi2_ACP_B0sEK0b = (ACP_B0sEK0b - ACP_B0sEK0b_exp)**2/(ACP_B0sEK0b_inc**2)
+    #chi2_ACP_B0sEpK0b= (ACP_B0sEpK0b - ACP_B0sEpK0b_exp)**2/(ACP_B0sEpK0b_inc**2)
+
+    chi2_ACP_BpPpK0  = (ACP_BpPpK0 - ACP_BpPpK0_exp)**2/(ACP_BpPpK0_inc**2)
+    chi2_ACP_BpP0Kp  = (ACP_BpP0Kp - ACP_BpP0Kp_exp)**2/(ACP_BpP0Kp_inc**2)
+    chi2_ACP_BpEKp   = (ACP_BpEKp - ACP_BpEKp_exp)**2/(ACP_BpEKp_inc**2)
+    chi2_ACP_BpEpKp  = (ACP_BpEpKp - ACP_BpEpKp_exp)**2/(ACP_BpEpKp_inc**2)
+    chi2_ACP_B0PmKp  = (ACP_B0PmKp - ACP_B0PmKp_exp)**2/(ACP_B0PmKp_inc**2)
+    chi2_ACP_B0P0K0  = (ACP_B0P0K0 - ACP_B0P0K0_exp)**2/(ACP_B0P0K0_inc**2)
+    #chi2_ACP_B0EK0   = (ACP_B0EK0 - ACP_B0EK0_exp)**2/(ACP_B0EK0_inc**2)
+    chi2_ACP_B0EpK0  = (ACP_B0EpK0 - ACP_B0EpK0_exp)**2/(ACP_B0EpK0_inc**2)
+    #chi2_ACP_B0sK0K0b= (ACP_B0sK0K0b - ACP_B0sK0K0b_exp)**2/(ACP_B0sK0K0b_inc**2)
+    #chi2_ACP_B0sPpPm = (ACP_B0sPpPm - ACP_B0sPpPm_exp)**2/(ACP_B0sPpPm_inc**2)
+    chi2_ACP_B0sKpKm = (ACP_B0sKpKm - ACP_B0sKpKm_exp)**2/(ACP_B0sKpKm_inc**2)
+    #chi2_ACP_B0sP0P0 = (ACP_B0sP0P0 - ACP_B0sP0P0_exp)**2/(ACP_B0sP0P0_inc**2)
+    #chi2_ACP_B0sP0E  = (ACP_B0sP0E - ACP_B0sP0E_exp)**2/(ACP_B0sP0E_inc**2)
+    #chi2_ACP_B0sP0Ep = (ACP_B0sP0Ep - ACP_B0sP0Ep_exp)**2/(ACP_B0sP0Ep_inc**2)
+    #chi2_ACP_B0sEE   = (ACP_B0sEE - ACP_B0sEE_exp)**2/(ACP_B0sEE_inc**2)
+    #chi2_ACP_B0sEEp  = (ACP_B0sEEp - ACP_B0sEEp_exp)**2/(ACP_B0sEEp_inc**2)
+    #chi2_ACP_B0sEpEp = (ACP_B0sEpEp - ACP_B0sEpEp_exp)**2/(ACP_B0sEpEp_inc**2)
+
+    #===Indirect CP asymmetries===#
+    chi2_SCP_B0K0K0b    = (Im_SCP_B0K0K0b - SCP_B0K0K0b_exp)**2/(SCP_B0K0K0b_inc**2)
+    chi2_SCP_B0PpPm     = (Im_SCP_B0PpPm - SCP_B0PpPm_exp)**2/(SCP_B0PpPm_inc**2)
+
+    chi2_SCP_B0P0K0     = (Im_SCP_B0P0K0 - SCP_B0P0K0_exp)**2/(SCP_B0P0K0_inc**2)
+    chi2_SCP_B0sKpKm    = (Im_SCP_B0sKpKm - SCP_B0sKpKm_exp)**2/(SCP_B0sKpKm_inc**2)
+    chi2_SCP_B0EpK0     = (Im_SCP_B0EpK0 - SCP_B0EpK0_exp)**2/(SCP_B0EpK0_inc**2)
+
+    chi2_BR = chi2_BR_BpK0bKp + chi2_BR_BpP0Pp + chi2_BR_BpEPp + chi2_BR_BpEpPp + chi2_BR_B0K0K0b + chi2_BR_B0PpPm + chi2_BR_B0KpKm + chi2_BR_B0P0P0 + chi2_BR_B0P0E + chi2_BR_B0P0Ep + chi2_BR_B0EE + chi2_BR_B0EpEp + chi2_BR_B0sPpKm +\
+              chi2_BR_BpPpK0 + chi2_BR_BpP0Kp + chi2_BR_BpEKp + chi2_BR_BpEpKp + chi2_BR_B0PmKp + chi2_BR_B0P0K0 + chi2_BR_B0EK0 + chi2_BR_B0EpK0 + chi2_BR_B0sK0K0b + chi2_BR_B0sPpPm + chi2_BR_B0sKpKm + chi2_BR_B0sP0P0 + chi2_BR_B0sEE + chi2_BR_B0sEEp + chi2_BR_B0sEpEp
+    
+    chi2_ACP = chi2_ACP_BpK0bKp + chi2_ACP_BpP0Pp + chi2_ACP_BpEPp + chi2_ACP_BpEpPp + chi2_ACP_B0K0K0b + chi2_ACP_B0PpPm + chi2_ACP_B0P0P0 + chi2_ACP_B0sPpKm +\
+               chi2_ACP_BpPpK0 + chi2_ACP_BpP0Kp + chi2_ACP_BpEKp + chi2_ACP_BpEpKp + chi2_ACP_B0PmKp + chi2_ACP_B0P0K0 + chi2_ACP_B0EpK0 + chi2_ACP_B0sKpKm
+    chi2_SCP = chi2_SCP_B0K0K0b + chi2_SCP_B0PpPm + chi2_SCP_B0P0K0 + chi2_SCP_B0sKpKm + chi2_SCP_B0EpK0
+
+    chi2_total = chi2_BR + chi2_ACP + chi2_SCP
+    return chi2_total
+
