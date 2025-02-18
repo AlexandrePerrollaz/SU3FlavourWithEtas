@@ -5,7 +5,7 @@ from tqdm import tqdm
 from scipy import stats
 from chi2_functions import *
 
-number_guess = 5000
+number_guess = 1000
 num_param = 25
 dof = 24
 
@@ -13,7 +13,7 @@ def minimize_with_guess(guess):
     try:
         # Initialize Minuit with parameters from guess
         minuit = Minuit(
-            chi2Minuit,
+            chi2MinuitAsmall,
             ampT8X8=guess[0], ampC8X8=guess[1], ampPuc8X8=guess[2], ampA8X8=guess[3],
             ampPAuc8X8=guess[4], ampPtc8X8=guess[5], ampPAtc8X8=guess[6],
             delC8X8=guess[7], delPuc8X8=guess[8], delA8X8=guess[9],
