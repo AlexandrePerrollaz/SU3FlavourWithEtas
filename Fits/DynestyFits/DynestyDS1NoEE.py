@@ -1,4 +1,4 @@
-import numpy as numpy
+import numpy as np
 import matplotlib.pyplot as plt
 import os
 import multiprocessing as mp
@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import dynesty
 from dynesty import plotting as dyplot
 import dynesty.utils as dyut
-from chi2_functions import *
+from DynestyChi2Functions import *
 import pickle
 
 def prior_transform(u):
@@ -15,13 +15,13 @@ def prior_transform(u):
   u_ampT8X1, u_ampC8X1, u_ampPuc8X1, u_ampPtc8X1,\
   u_delT8X1, u_delC8X1, u_delPuc8X1, u_delPtc8X1 = u
 
-  ampT8X8 = 5 + 5*u_ampT8X8
-  ampC8X8 = 5 + 5*u_ampC8X8
-  ampPuc8X8 = 5 + 5*u_ampPuc8X8
-  ampA8X8 = 5 + 5*u_ampA8X8
-  ampPAuc8X8 = 5 + 5*u_ampPAuc8X8
-  ampPtc8X8 = 5 + 5*u_ampPtc8X8
-  ampPAtc8X8 = 5 + 5*u_ampPAtc8X8
+  ampT8X8 = 300*u_ampT8X8
+  ampC8X8 = 300*u_ampC8X8
+  ampPuc8X8 = 300*u_ampPuc8X8
+  ampA8X8 = 300*u_ampA8X8
+  ampPAuc8X8 = 300*u_ampPAuc8X8
+  ampPtc8X8 = 300*u_ampPtc8X8
+  ampPAtc8X8 = 300*u_ampPAtc8X8
 
   delC8X8 = 2*np.pi*u_delC8X8
   delPuc8X8 = 2*np.pi*u_delPuc8X8
@@ -30,33 +30,33 @@ def prior_transform(u):
   delPtc8X8 = 2*np.pi*u_delPtc8X8
   delPAtc8X8 = 2*np.pi*u_delPAtc8X8
 
-  ampT8X1 = 5 + 5*u_ampT8X1
-  ampC8X1 = 5 + 5*u_ampC8X1
-  ampPuc8X1 = 5 + 5*u_ampPuc8X1
-  ampPtc8X1 = 5 + 5*u_ampPtc8X1
+  ampT8X1 = 300*u_ampT8X1
+  ampC8X1 = 300*u_ampC8X1
+  ampPuc8X1 = 300*u_ampPuc8X1
+  ampPtc8X1 = 300*u_ampPtc8X1
 
   delT8X1 = 2*np.pi*u_delT8X1
   delC8X1 = 2*np.pi*u_delC8X1
   delPuc8X1 = 2*np.pi*u_delPuc8X1
   delPtc8X1 = 2*np.pi*u_delPtc8X1
 
-  return np.array([ampT8X8, ampC8X8, ampPuc8X8, ampA8X8, ampPAuc8X8, ampPtc8X8, ampPAtc8X8,\
-          delC8X8, delPuc8X8, delA8X8, delPAuc8X8, delPtc8X8, delPAtc8X8,\
-          ampT8X1, ampC8X1, ampPuc8X1, ampPtc8X1,\
-          delT8X1, delC8X1, delPuc8X1, delPtc8X1])
+  return np.array([ampT8X8, ampC8X8, ampPuc8X8, ampA8X8, ampPAuc8X8, ampPtc8X8, ampPAtc8X8,
+                   delC8X8, delPuc8X8, delA8X8, delPAuc8X8, delPtc8X8, delPAtc8X8,
+                   ampT8X1, ampC8X1, ampPuc8X1, ampPtc8X1,
+                   delT8X1, delC8X1, delPuc8X1, delPtc8X1])
 
 if __name__ =="__main__":
   nthreads = os.cpu_count()
   ndim = 21
-  nlive = 500
+  nlive = 3000
   with mp.Pool(nthreads) as poo:
-      dns = dynesty.DynamicNestedSampler(chi2WithoutEtaEta,
-                                      prior_transform,
-                                      ndim = ndim,
-                                      nlive=nlive,
-                                      sample='rslice',
-                                      pool=poo,
-                                      queue_size=nthreads * 2)
+      dns = dynesty.DynamicNestedSampler(chi2NoEtaEtaDS1only,
+                                       prior_transform,
+                                       ndim = ndim,
+                                       nlive=nlive,
+                                       sample='rslice',
+                                       pool=poo,
+                                       queue_size=nthreads * 2)
       dns.run_nested(n_effective=10000)
       
   res = dns.results
@@ -72,5 +72,6 @@ if __name__ =="__main__":
       'logz': res.logz,
       'logzerr': res.logzerr,
   }
-  with open('./amdict_result.pkl', 'wb') as f:
+  os.makedirs('./BestFits', exist_ok=True)
+  with open('./BestFits/Chi2DS1NoEE.pkl', 'wb') as f:
     pickle.dump(dict_result, f)
