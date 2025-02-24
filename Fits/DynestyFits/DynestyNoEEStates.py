@@ -48,7 +48,7 @@ def prior_transform(u):
 if __name__ =="__main__":
   nthreads = os.cpu_count()
   ndim = 21
-  nlive = 1000
+  nlive = 2000
   with mp.Pool(nthreads) as poo:
       dns = dynesty.DynamicNestedSampler(chi2WithoutEtaEta,
                                        prior_transform,
@@ -75,3 +75,4 @@ if __name__ =="__main__":
   os.makedirs('./BestFits', exist_ok=True)
   with open('./BestFits/Chi2NoEE.pkl', 'wb') as f:
     pickle.dump(dict_result, f)
+  notification()

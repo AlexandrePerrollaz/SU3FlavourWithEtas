@@ -48,7 +48,7 @@ def prior_transform(u):
 if __name__ =="__main__":
   nthreads = os.cpu_count()
   ndim = 21
-  nlive = 3000
+  nlive = 2000
   with mp.Pool(nthreads) as poo:
       dns = dynesty.DynamicNestedSampler(chi2NoEtaEtaDS1only,
                                        prior_transform,
@@ -73,6 +73,6 @@ if __name__ =="__main__":
       'logzerr': res.logzerr,
   }
   os.makedirs('./BestFits', exist_ok=True)
-  with open('./BestFits/Chi2DS1NoEE.pkl', 'wb') as f:
+  with open('./BestFits/Chi2DS0NoEE.pkl', 'wb') as f:
     pickle.dump(dict_result, f)
   notification()

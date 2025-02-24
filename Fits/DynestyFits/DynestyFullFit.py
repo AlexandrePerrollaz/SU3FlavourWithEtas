@@ -8,6 +8,7 @@ from dynesty import plotting as dyplot
 import dynesty.utils as dyut
 from DynestyChi2Functions import *
 import pickle
+import winsound
 
 def prior_transform(u):
   u_ampT8X8, u_ampC8X8, u_ampPuc8X8, u_ampA8X8, u_ampPAuc8X8, u_ampPtc8X8, u_ampPAtc8X8,\
@@ -57,7 +58,7 @@ def prior_transform(u):
 if __name__ =="__main__":
   nthreads = os.cpu_count()
   ndim = 25
-  nlive = 1000
+  nlive = 2000
   with mp.Pool(nthreads) as poo:
       dns = dynesty.DynamicNestedSampler(chi2,
                                        prior_transform,
@@ -84,3 +85,5 @@ if __name__ =="__main__":
   os.makedirs('./BestFits', exist_ok=True)
   with open('./BestFits/Chi2FullFit.pkl', 'wb') as f:
     pickle.dump(dict_result, f)
+    notification()
+
