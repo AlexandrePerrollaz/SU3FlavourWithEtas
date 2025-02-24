@@ -59,7 +59,7 @@ def prior_transform(u):
 if __name__ =="__main__":
   nthreads = os.cpu_count()
   ndim = 26
-  nlive = 1000
+  nlive = 2000
   with mp.Pool(nthreads) as poo:
       dns = dynesty.DynamicNestedSampler(chi2WithTheta,
                                        prior_transform,
